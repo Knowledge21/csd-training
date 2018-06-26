@@ -7,6 +7,7 @@ provider "cloudflare" {
 }
 
 variable "domain" { default = "bolado.network" }
+variable "cloud_domain" {}
 variable "local_ip" {}
 variable "lula_ip" {}
 
@@ -32,5 +33,13 @@ resource "cloudflare_record" "lula" {
   value = "${var.lula_ip}"
   type = "A"
   ttl = "120"
+}
+
+resource "cloudflare_record" "cloud" {
+  domain = "${var.domain}"
+  name = "cloud"
+  value = "${var.cloud_domain}"
+  type = "CNAME"
+  ttl = "1"
 }
 
